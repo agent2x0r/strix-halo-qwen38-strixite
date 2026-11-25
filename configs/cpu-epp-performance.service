@@ -1,0 +1,11 @@
+[Unit]
+Description=Set AMD P-State EPP to performance
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'for f in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do [ -w "$f" ] && echo performance > "$f"; done'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
